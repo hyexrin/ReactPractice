@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import Box from "./component/Box"
 
+// ********** 6 11분 부터
 
 // 1. 박스 2개 (타이틀, 사진, 결과)
 // 2. 가위 바위 보 버튼 3개
@@ -16,7 +17,7 @@ const choice = {
     img:"https://cdn-icons.flaticon.com/png/512/2338/premium/2338381.png?token=exp=1658721510~hmac=611bcb68ef833f8f93ac72940811680b"
   },
   scissors:{
-    name:"Scisoors",
+    name:"Scissors",
     img:"https://cdn-icons-png.flaticon.com/128/2107/2107852.png"
   },
   paper:{
@@ -29,11 +30,25 @@ function App() {
 
   const [userSelect, setUserSelect] = useState(null);
   const [computerSelect, setcomputerSelect] = useState(null);
+  const [result, setResult] = useState("");
 
   const play = (userChoice) => {
     setUserSelect(choice[userChoice]);
     let computerChoice = randomChoice();
     setcomputerSelect(computerChoice);
+    setResult(judgement(choice[userChoice], computerChoice));
+  };
+
+  const judgement = (user, computer) => {
+    console.log("user", user, "computer", computer);
+
+    // user == computer : tie / user = rock, computer = scissors : win / user = rock, computer = paper : lose ...
+
+    if(user.name == computer.name) {
+      return "tie";
+    } else if(user.name == "Rock") return computer.name=="Scissors"?"win":"lose"
+    else if(user.name == "Scissors") return computer.name=="Paper"?"win":"lose"
+    else if(user.name == "Paper") return computer.name=="Rock"?"win":"lose" 
   };
 
   const randomChoice = () =>{
@@ -50,8 +65,8 @@ function App() {
   return (
     <div>
       <div className='main'>
-      <Box title="You" item={userSelect}/>
-      <Box title="Computer" item={computerSelect}/>
+      <Box title="You" item={userSelect} result={result}/>
+      <Box title="Computer" item={computerSelect} result={result}/>
       </div>
       <div className='main'>
         <button onClick={() => play("scissors")}>가위</button>
