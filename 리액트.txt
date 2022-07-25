@@ -1,0 +1,3 @@
+cd C:\Users\ohr10\OneDrive\바탕 화면\　　\리액트_코알누
+
+npx create-react-app [프로젝트 명]
