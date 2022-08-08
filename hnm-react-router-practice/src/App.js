@@ -1,10 +1,12 @@
 import logo from './logo.svg';
 import { Routes, Route } from "react-router-dom";
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import ProductAll from './page/ProductAll';
 import Login from './page/Login';
-import ProductDetail from './page/ProductDetail';
 import Navbar from './component/Navbar';
+import { useEffect, useState } from 'react';
+import PrivateRoute from './route/PrivateRoute';
 
 // 1. 전체 상품 페이지, 로그인 페이지, 상품 상세 페이지
 // 1-1. 상단 네비게이션바 만들기
@@ -18,14 +20,22 @@ import Navbar from './component/Navbar';
 // 9. 상품 검색 기능
 
 function App() {
+
+  const [authenticate, setAuthenticate] = useState(false); // true: 로그인 성공, false: 로그인 실패\
+  const [loginState, setLoginState] = useState('로그인'); 
+
+  useEffect(()=>{
+    console.log("Aaaa",authenticate);
+  },[authenticate]);
+
   return (
     <div>
-      <Navbar />
+      <Navbar loginState={loginState} setLoginState={setLoginState} />
 
       <Routes>
         <Route path='/' element={<ProductAll />}></Route>
-        <Route path='/login' element={<Login />}></Route>
-        <Route path='/product/:id' element={<ProductDetail />}></Route>
+        <Route path='/login' element={<Login setAuthenticate={setAuthenticate} setLoginState={setLoginState}/> }></Route>
+        <Route path='/product/:id' element={<PrivateRoute authenticate={authenticate} />}></Route>
       </Routes>
     </div>
   );
