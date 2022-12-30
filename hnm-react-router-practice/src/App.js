@@ -7,6 +7,7 @@ import Login from './page/Login';
 import Navbar from './component/Navbar';
 import { useEffect, useState } from 'react';
 import PrivateRoute from './route/PrivateRoute';
+import { useSelector } from 'react-redux';
 
 // 1. 전체 상품 페이지, 로그인 페이지, 상품 상세 페이지
 // 1-1. 상단 네비게이션바 만들기
@@ -21,7 +22,8 @@ import PrivateRoute from './route/PrivateRoute';
 
 function App() {
 
-  const [authenticate, setAuthenticate] = useState(false); // true: 로그인 성공, false: 로그인 실패\
+  //const productList = useSelector(state => state.product.productList);
+  const authenticate = useSelector(state => state.auth.authenticate); // true: 로그인 성공, false: 로그인 실패
   const [loginState, setLoginState] = useState('로그인'); 
 
   useEffect(()=>{
@@ -34,8 +36,8 @@ function App() {
 
       <Routes>
         <Route path='/' element={<ProductAll />}></Route>
-        <Route path='/login' element={<Login setAuthenticate={setAuthenticate} setLoginState={setLoginState}/> }></Route>
-        <Route path='/product/:id' element={<PrivateRoute authenticate={authenticate} />}></Route>
+        <Route path='/login' element={<Login setLoginState={setLoginState}/> }></Route>
+        <Route path='/product/:id' element={<PrivateRoute/>}></Route>
       </Routes>
     </div>
   );

@@ -1,35 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, Container, Row, Col, Dropdown } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { productAction } from '../redux/actions/productAction';
 
 const ProductDetail = () => {
   let { id } = useParams();
+  const productDetail = useSelector(state => state.product.productDetail);
+  const dispatch = useDispatch();
 
   const [product, setProduct] = useState(null);
 
-  const getProductDetail = async () => {
-    let url = `http://localhost:5000/products/${id}`;
-    let response = await fetch(url);
-    let data = await response.json();
-    console.log(data);
-    setProduct(data);
+  const getProductDetail = () => {
+    dispatch(productAction.getProductDetail(id));
   };
 
   useEffect(() => {
     getProductDetail();
   }, []);
 
+  console.log(productDetail)
+
   return (
     <Container>
       <Row>
         <Col className='product-img'>
-          <img src={product?.img} />
+          <img src={productDetail?.img} />
         </Col>
 
         <Col>
-          <div>{product?.title}</div>
-          <div><b>\ {product?.price}</b></div>
-          <div>{product?.choice == true ? "Conscious choice" : ""}</div>
+          <div>{productDetail?.title}</div>
+          <div><b>\ {productDetail?.price}</b></div>
+          <div>{productDetail?.choice === true ? "Conscious choice" : ""}</div>
           <br></br>
           <div>
 

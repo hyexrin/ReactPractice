@@ -11,10 +11,10 @@ const Navbar = ({loginState, setLoginState}) => {
     const navigate = useNavigate();
 
     const goToLogin = () => {
-        if(loginState=='로그인') {
+        if(loginState==='로그인') {
             navigate('/login');
             
-        } else if (loginState=='로그아웃') {
+        } else if (loginState==='로그아웃') {
             setLoginState('로그인');
         }
     };
