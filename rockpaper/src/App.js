@@ -12,11 +12,11 @@ import Box from "./component/Box"
 const choice = {
   rock:{
     name:"Rock",
-    img:"https://cdn-icons.flaticon.com/png/512/2338/premium/2338381.png?token=exp=1658721510~hmac=611bcb68ef833f8f93ac72940811680b"
+    img:"https://cdn-icons-png.flaticon.com/512/3562/3562093.png"
   },
   scissors:{
     name:"Scissors",
-    img:"https://cdn-icons-png.flaticon.com/128/2107/2107852.png"
+    img:"https://cdn-icons-png.flaticon.com/512/4161/4161804.png"
   },
   paper:{
     name:"Paper",
